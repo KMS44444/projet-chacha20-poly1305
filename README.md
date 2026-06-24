@@ -1,51 +1,51 @@
-# ChaCha20-Poly1305
+# 🔒 ChaCha20-Poly1305 AEAD & Image Encryption
 
-Projet pédagogique en Python implémentant l’algorithme **ChaCha20-Poly1305 AEAD**, tel que défini dans les RFC 7539 et RFC 8439.
+Ce projet pédagogique en Python implémente l'algorithme de chiffrement authentifié **ChaCha20-Poly1305 AEAD**, tel que défini dans les standards cryptographiques officiels ([RFC 7539](https://datatracker.ietf.org/doc/html/rfc7539) et [RFC 8439](https://datatracker.ietf.org/doc/html/rfc8439)). 
 
----
-
-# Objectif
-
-Ce projet a pour but :
-
-- de comprendre le fonctionnement interne de l’algorithme ChaCha20 (quarter rounds, colonnes, diagonales, etc.) ;
-- d’implémenter l’authentification de message avec Poly1305 ;
-- d’intégrer ces deux briques cryptographiques dans la construction AEAD (Authenticated Encryption with Associated Data) ;
-- de comparer les résultats avec des vecteurs de test officiels.
+Réalisé dans le cadre d'un cours de mathématiques appliquées, il applique cette cryptographie au chiffrement et déchiffrement d'images locales.
 
 ---
 
-#  Fonctionnalités
+## 🎯 Objectifs du projet
 
--  **ChaCha20** : chiffrement par flot (génération de keystream, XOR avec le plaintext)  
--  **Poly1305** : calcul du tag d’authentification avec une clé dérivée par ChaCha20  
--  **AEAD ChaCha20-Poly1305** : chiffrement + authentification de données supplémentaires (AAD)  
-- Gestion des blocs partiels, padding et longueurs conformément aux RFC  
-- Fonctions utilitaires : conversion little/big endian, découpage en blocs, etc.  
+- **Comprendre la cryptographie moderne** : Plonger dans le fonctionnement interne de ChaCha20 (quarter rounds, opérations sur colonnes/diagonales, gestion d'états).
+- **Garantir l'intégrité** : Implémenter l'authentification de message avec Poly1305.
+- **Construction AEAD** *(Authenticated Encryption with Associated Data)* : Combiner confidentialité et authenticité des données.
+- **Application pratique** : Utiliser l'algorithme pour chiffrer et déchiffrer des fichiers images réels via un menu interactif.
 
 ---
 
-# Exemple d’utilisation
+## ✨ Fonctionnalités
 
-```python
-from chacha20_poly1305 import (
-    aead_chacha20_poly1305_encrypt,
-    aead_chacha20_poly1305_decrypt,
-)
+- **ChaCha20** : Génération d'un *keystream* et chiffrement par flot (XOR).
+- **Poly1305** : Calcul du tag d'authentification à partir d'une clé dérivée.
+- **AEAD** : Intégration complète avec gestion des Données Additionnelles Authentifiées (AAD).
+- **Application Images** : Chiffrement de fichiers images avec extraction des matrices de pixels via `NumPy` et `Pillow`.
+- **Interface CLI** : Menu interactif simple pour chiffrer, déchiffrer et nettoyer l'espace de travail.
 
-# Clé de 256 bits et nonce de 96 bits
-key = bytes.fromhex("000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f")
-nonce = bytes.fromhex("000000090000004a00000000")
+---
 
-aad = b"donnees-authentifiees"
-plaintext = b"Message confidentiel"
+## 🛠️ Architecture du Code
 
-# Chiffrement
-ciphertext, tag = aead_chacha20_poly1305_encrypt(key, nonce, plaintext, aad)
-print("Ciphertext :", ciphertext.hex())
-print("Tag        :", tag.hex())
+Le projet est modulaire, chaque fichier traitant une étape spécifique de l'algorithme :
 
-# Déchiffrement + recalcul du tag
-decrypted, tag2 = aead_chacha20_poly1305_decrypt(key, nonce, ciphertext, aad)
-assert decrypted == plaintext, "Le message déchiffré est incorrect"
-assert tag2 == tag, "Échec de l’authentification : le tag ne correspond pas"
+| Fichier | Rôle |
+|---------|------|
+| `quarter_round.py` | Opérations arithmétiques de base (mod 2^32, XOR, décalages circulaires). |
+| `block_function.py`| Construction de l'état (16 mots de 32 bits) et exécution des 20 rounds. |
+| `chacha20.py` | Logique de chiffrement par flot (génération et application du keystream). |
+| `poly1305.py` | Algorithme de calcul du code d'authentification (MAC) modulo 2^130 - 5. |
+| `aead_chacha20_poly1305.py`| Orchestration de l'AEAD (Chiffrement + Padding + MAC). |
+| `picture.py` | Conversion des images en bytes, génération des nonces/clés et interfaçage. |
+| `main.py` | Point d'entrée de l'application et menu interactif. |
+
+---
+
+## 🚀 Installation et Prérequis
+
+Assurez-vous d'avoir **Python 3.x** installé sur votre machine.
+
+1. **Cloner le dépôt :**
+   ```bash
+   git clone https://github.com/KMS44444/projet-chacha20-poly1305.git
+   cd projet-chacha20-poly1305
