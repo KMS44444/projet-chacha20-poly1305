@@ -41,9 +41,15 @@ Le projet est modulaire, chaque fichier traitant une étape spécifique de l'alg
 
 ---
 
-## 🚀 Installation et Prérequis
+## 🚀 Installation et Configuration
 
-Assurez-vous d'avoir **Python 3.x** installé sur votre machine.
+### 1. Prérequis
+Assurez-vous d'avoir **Python 3.8 ou une version supérieure** installé sur votre machine.
+
+### 2. Installation des dépendances
+Ce projet utilise `Pillow` pour charger et sauvegarder les fichiers images, et `NumPy` pour manipuler efficacement les matrices de pixels sous forme de tableaux d'octets bruts :
+```bash
+pip install Pillow numpy
 
 1. **Cloner le dépôt :**
    ```bash
