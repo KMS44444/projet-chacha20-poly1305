@@ -53,8 +53,8 @@ pip install Pillow numpy
 ```
 **Cloner le dépôt :**
 ```bash
-   git clone https://github.com/KMS44444/projet-chacha20-poly1305.git
-   cd projet-chacha20-poly1305
+git clone https://github.com/KMS44444/projet-chacha20-poly1305.git
+cd projet-chacha20-poly1305
 ```
 
 ## 📁 Structure des répertoires requis
