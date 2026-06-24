@@ -30,7 +30,7 @@ def image_from_file_to_bytes(path):
 
 
 def image_from_bytes_to_file(img_bytes, img_shape, path):
-    numpy_cipher_data = np.reshape(np.frombuffer(img_bytes, dtype=np.uint8), newshape=img_shape)
+    numpy_cipher_data = np.reshape(np.frombuffer(img_bytes, dtype=np.uint8), img_shape)
     Image.fromarray(numpy_cipher_data).save(path)
 
 
