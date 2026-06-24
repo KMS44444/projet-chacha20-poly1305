@@ -50,11 +50,11 @@ Assurez-vous d'avoir **Python 3.8 ou une version supérieure** installé sur vot
 Ce projet utilise `Pillow` pour charger et sauvegarder les fichiers images, et `NumPy` pour manipuler efficacement les matrices de pixels sous forme de tableaux d'octets bruts :
 ```bash
 pip install Pillow numpy
-
-1. **Cloner le dépôt :**
-   ```bash
+```
+**Cloner le dépôt :**
+```bash
    git clone https://github.com/KMS44444/projet-chacha20-poly1305.git
-   cd projet-chacha20-poly1305```
+   cd projet-chacha20-poly1305
 ```
 
 ## 📁 Structure des répertoires requis
